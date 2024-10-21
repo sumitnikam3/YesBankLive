@@ -1,0 +1,10 @@
+export const PORT = 5000
+export const HOST = "database-1.cps2e04wmn38.ap-south-1.rds.amazonaws.com";
+export const USER = 'admin';
+export const PASSWORD = 'sumitnikam';
+export const DB_NAME = 'wptProject';
+export const ACC_DETAILS_TABLE = 'AccountDetails';
+export const BRANCH_DETAILS_TABLE = 'BranchDetails';
+export const EMP_DETAILS_TABLE = 'EmployeeDetails';
+export const TRAN_DETAILS_TABLE = 'TransactionDetails';
+export const CUST_DETAILS_TABLE = 'CustomerDetails';

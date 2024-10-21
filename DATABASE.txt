@@ -1,0 +1,146 @@
+-- Create the database
+CREATE DATABASE wptProject;
+
+-- Switch to the new database
+USE wptProject;
+
+-- Create CustomerDetails table
+CREATE TABLE CustomerDetails (
+    CustomerID INT PRIMARY KEY AUTO_INCREMENT,
+    CustomerName VARCHAR(25) NOT NULL,
+    MobileNo VARCHAR(10) NOT NULL UNIQUE,
+    EmailID VARCHAR(25) NOT NULL UNIQUE,
+    Address VARCHAR(1000) NOT NULL,
+    AadharNo VARCHAR(12) NOT NULL UNIQUE,
+    PanNo VARCHAR(10) NOT NULL UNIQUE,
+    Password VARCHAR(2000) NOT NULL
+) AUTO_INCREMENT=110001;
+
+-- Create BranchDetails table
+CREATE TABLE BranchDetails (
+    branch_code INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    address VARCHAR(1000) NOT NULL
+) AUTO_INCREMENT=130001;
+
+-- Create AccountDetails table
+CREATE TABLE AccountDetails (
+    account_no INT PRIMARY KEY AUTO_INCREMENT,
+    branch_code INT NOT NULL,
+    balance DECIMAL(15, 2) NOT NULL,
+    account_type VARCHAR(10) NOT NULL,
+    CustomerID INT NOT NULL,
+    FOREIGN KEY (branch_code) REFERENCES BranchDetails(branch_code),
+    FOREIGN KEY (CustomerID) REFERENCES CustomerDetails(CustomerID)
+) AUTO_INCREMENT=120001;
+
+-- Create EmployeeDetails table
+CREATE TABLE EmployeeDetails (
+    empid INT PRIMARY KEY AUTO_INCREMENT UNIQUE,
+    emp_name VARCHAR(25) NOT NULL,
+    role VARCHAR(20) NOT NULL,
+    branch_code INT UNIQUE NOT NULL,
+    password VARCHAR(2000) NOT NULL,
+    FOREIGN KEY (branch_code) REFERENCES BranchDetails(branch_code)
+) AUTO_INCREMENT=140001;
+
+-- Create TransactionDetails table
+CREATE TABLE TransactionDetails (
+    transaction_id INT PRIMARY KEY AUTO_INCREMENT,
+    account_no INT NOT NULL,
+    amount DECIMAL(15, 2) NOT NULL,
+    beneficiary INT NOT NULL,
+    type VARCHAR(6) NOT NULL,
+    FOREIGN KEY (account_no) REFERENCES AccountDetails(account_no),
+    FOREIGN KEY (beneficiary) REFERENCES AccountDetails(account_no)
+) AUTO_INCREMENT=150001;
+
+START TRANSACTION;
+
+-- Insert into BranchDetails
+INSERT INTO BranchDetails (address) VALUES ('Mumbai');
+
+-- Insert into EmployeeDetails
+INSERT INTO EmployeeDetails (emp_name, role, branch_code, password) 
+VALUES ('Sumit', 'admin', 130001, 'Cdac@123');
+
+-- Insert into CustomerDetails
+INSERT INTO CustomerDetails (CustomerName, MobileNo, EmailID, Address, AadharNo, PanNo, Password)
+VALUES ('Sumit Nikam', '9975961101', 'sumitnikam03@gmail.com', 'Mumbai', '111100005555', 'ABCDE1111x', 'Sumit@123');
+
+-- Commit the transaction
+COMMIT;
+
+
+Here are some sample data entries for admins and customers, including Indian names and 12-digit Aadhaar numbers:
+
+### **Admin Sample Data**
+1. **Admin 1**:
+   - First Name: *Rajesh*
+   - Last Name: *Sharma*
+   - Branch Name: *Mumbai*
+   - Role: *Manager*
+   - Password: *admin123*
+   
+2. **Admin 2**:
+   - First Name: *Priya*
+   - Last Name: *Patil*
+   - Branch Name: *Pune*
+   - Role: *Assistant Manager*
+   - Password: *admin456*
+   
+3. **Admin 3**:
+   - First Name: *Vikram*
+   - Last Name: *Rao*
+   - Branch Name: *Nashik*
+   - Role: *Clerk*
+   - Password: *admin789*
+
+### **Customer Sample Data**
+1. **Customer 1**:
+   - Customer Name: *Amit Desai*
+   - Mobile Number: *9876543210*
+   - Email ID: *amit.desai@gmail.com*
+   - Address: *Mumbai*
+   - Aadhaar Number: *123456789012*
+   - PAN Number: *ABCDE1234F*
+   - Password: *cust123*
+
+2. **Customer 2**:
+   - Customer Name: *Sonal Jain*
+   - Mobile Number: *9876543211*
+   - Email ID: *sonal.jain@yahoo.com*
+   - Address: *Pune*
+   - Aadhaar Number: *234567890123*
+   - PAN Number: *BCDEF2345G*
+   - Password: *cust456*
+
+3. **Customer 3**:
+   - Customer Name: *Rahul Mehta*
+   - Mobile Number: *9876543212*
+   - Email ID: *rahul.mehta@hotmail.com*
+   - Address: *Nashik*
+   - Aadhaar Number: *345678901234*
+   - PAN Number: *CDEFG3456H*
+   - Password: *cust789*
+
+These can be inserted from the frontend using your form.
+
+export const PORT = 5000;
+
+export const HOST = "database-1.cps2e04wmn38.ap-south-1.rds.amazonaws.com";
+export const USER = 'admin';
+export const PASSWORD = 'sumitnikam';
+export const DB_NAME = 'wptProject';
+
+//export const HOST = "localhost";
+//export const USER = 'root';
+// export const PASSWORD = 'cdac';
+// export const DB_NAME = 'wptproject';
+
+export const ACC_DETAILS_TABLE = 'AccountDetails'; 
+export const BRANCH_DETAILS_TABLE = 'BranchDetails';
+export const EMP_DETAILS_TABLE = 'EmployeeDetails';
+export const TRAN_DETAILS_TABLE = 'TransactionDetails';
+export const CUST_DETAILS_TABLE = 'CustomerDetails';
+
+
